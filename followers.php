@@ -2,13 +2,13 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>ReSoC - Mes abonnés </title> 
+        <title>ReSoC - Mes abonnés </title>
         <meta name="author" content="Julien Falconnet">
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         <header>
-            <img src="resoc.jpg" alt="Logo de notre réseau social"/> 
+            <img src="resoc.jpg" alt="Logo de notre réseau social"/>
             <nav id="menu">
                 <a href="news.php">Actualités</a>
                 <a href="wall.php?user_id=5">Mur</a>
@@ -25,7 +25,7 @@
 
             </nav>
         </header>
-        <div id="wrapper">          
+        <div id="wrapper">
             <aside>
                 <img src = "user.jpg" alt = "Portrait de l'utilisatrice"/>
                 <section>
@@ -41,7 +41,7 @@
                 // Etape 1: récupérer l'id de l'utilisateur
                 $userId = $_GET['user_id'];
                 // Etape 2: se connecter à la base de donnée
-                $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
+                $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "SELECT `users`.* "
                         . "FROM `followers` "
@@ -51,13 +51,16 @@
                 ;
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Etape 4: à vous de jouer
-                //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
+                //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous
+                while ($user = $lesInformations->fetch_assoc()){
                 ?>
+
                 <article>
                     <img src="user.jpg" alt="blason"/>
-                    <h3>Béatrice</h3>
-                    <p>id:321</p>
+                    <h3><? echo $user['alias']?></h3>
+                    <p><? echo $user['id']?></p>
                 </article>
+              <?php } ?>
             </main>
         </div>
     </body>
