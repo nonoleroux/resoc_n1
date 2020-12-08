@@ -98,7 +98,7 @@
                     ?>
                     <article>
                         <h3>
-                            <time><?php echo $post['created'] ?></time>
+                            <time><?=$post['created'] ?></time> <!--ceci est un short-tag (pareil que les lignes du dessous)-->
                         </h3>
                         <address><?php echo $post['author_name'] ?></address>
                         <div>
