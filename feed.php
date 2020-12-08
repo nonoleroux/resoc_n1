@@ -53,7 +53,6 @@
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
                 //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
-                echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
@@ -74,7 +73,7 @@
                         . "`posts`.`created`,"
                         . "`users`.`alias` as author_name,  "
                         . "count(`likes`.`id`) as like_number,  "
-                        . "GROUP_CONCAT(`tags`.`label`) AS taglist "
+                        . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
                         . "FROM `followers` "
                         . "JOIN `users` ON `users`.`id`=`followers`.`followed_user_id`"
                         . "JOIN `posts` ON `posts`.`user_id`=`users`.`id`"
