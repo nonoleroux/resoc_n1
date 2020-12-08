@@ -52,7 +52,7 @@
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
                 //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
-                
+
                 ?>
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
@@ -70,8 +70,9 @@
                 $laQuestionEnSql = "SELECT `posts`.`content`,"
                         . "`posts`.`created`,"
                         . "`users`.`alias` as author_name,  "
+                        . "`users`.`id` as user_id,  "
                         . "count(`likes`.`id`) as like_number,  "
-                        . "GROUP_CONCAT(`tags`.`label`) AS taglist "
+                        . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
                         . "FROM `posts`"
                         . "JOIN `users` ON  `users`.`id`=`posts`.`user_id`"
                         . "LEFT JOIN `posts_tags` ON `posts`.`id` = `posts_tags`.`post_id`  "
@@ -95,11 +96,12 @@
 
 
                     ?>
+
                     <article>
                         <h3>
                             <time datetime='2020-02-01 11:12:13' >31 février 2010 à 11h12</time>
                         </h3>
-                        <address><?php echo $post['author_name'] ?></address>
+                        <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>">  <?php echo $post['author_name'] ?></a></address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>

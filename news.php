@@ -63,6 +63,7 @@
                 $laQuestionEnSql = "SELECT `posts`.`content`,"
                         . "`posts`.`created`,"
                         . "`users`.`alias` as author_name,  "
+                        . "`users`.`id` as user_id,  "
                         . "count(`likes`.`id`) as like_number,  "
                         . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
                         . "FROM `posts`"
@@ -100,7 +101,7 @@
                         <h3>
                             <time><?=$post['created'] ?></time> <!--ceci est un short-tag (pareil que les lignes du dessous)-->
                         </h3>
-                        <address><?php echo $post['author_name'] ?></address>
+                        <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>">  <?php echo $post['author_name'] ?></a></address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
