@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -7,21 +10,22 @@
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
-        <header>
-            <img src="resoc.jpg" alt="Logo de notre réseau social"/>
-            <nav id="menu">
-                <a href="news.php">Actualités</a>
-                <a href="wall.php?user_id=5">Mur</a>
-                <a href="feed.php?user_id=5">Flux</a>
-                <a href="tags.php?tag_id=1">Mots-clés</a>
-            </nav>
-            <nav id="user">
-                <a href="#">Profil</a>
-                <ul>
-                    <li><a href="settings.php?user_id=5">Paramètres</a></li>
-                    <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
-                    <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
-                </ul>
+      <header>
+          <img src="resoc.jpg" alt="Logo de notre réseau social"/>
+          <nav id="menu">
+              <a href="news.php">Actualités</a>
+              <a href="wall.php?user_id=<?= $_SESSION['connected_id']?>">Mur</a>
+              <a href="feed.php?user_id=<?= $_SESSION['connected_id']?>">Flux</a>
+              <a href="tags.php?tag_id=1">Mots-clés</a>
+          </nav>
+          <nav id="user">
+              <a href="#">Profil</a>
+              <ul>
+                  <li><a href="settings.php?user_id=<?= $_SESSION['connected_id']?>">Paramètres</a></li>
+                  <li><a href="followers.php?user_id=<?= $_SESSION['connected_id']?>">Mes suiveurs</a></li>
+                  <li><a href="subscriptions.php?user_id=<?= $_SESSION['connected_id']?>">Mes abonnements</a></li>
+                  <li><a href="subscriptions.php?user_id=<?= $_SESSION['connected_id']?>">Deconnexion</a></li>
+              </ul>
 
             </nav>
         </header>
@@ -47,7 +51,7 @@
                         // on ne fait ce qui suit que si un formulaire a été soumis.
                         // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
                         // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
-                        
+
                         // et complétez le code ci dessous en remplaçant les ???
                         $new_email = $_POST['email'];
                         $new_alias = $_POST['pseudo'];
