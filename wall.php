@@ -38,7 +38,7 @@ session_start();
              * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
              * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
              */
-            $userId = $_GET['user_id'];
+            $userId= $_GET['user_id'];
             ?>
             <?php
             /**
@@ -67,6 +67,7 @@ session_start();
                 </section>
             </aside>
             <main>
+                <?php if ($_SESSION['connected_id'] == $userId){ ?>
               <article>
                   <h2>Poster un message</h2>
                   <?php
@@ -82,9 +83,7 @@ session_start();
                   $lesInformationsAlias = $mysqli->query($requeteAlias);
                   $alias = $lesInformationsAlias->fetch_assoc();
 
-                  print_r ($alias);
-                  echo $_SESSION['connected_id'];
-                  print_r ($_SESSION['connected_alias']);
+
 
                   /**
                    * TRAITEMENT DU FORMULAIRE
@@ -93,6 +92,9 @@ session_start();
                   // si on recoit un champs email rempli il y a une chance que ce soit un traitement
 
 
+                  $enCoursDeTraitement = isset($_POST['submit']);
+                  if ($enCoursDeTraitement)
+                  {
 
 
                       // on ne fait ce qui suit que si un formulaire a été soumis.
@@ -100,7 +102,8 @@ session_start();
                       // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
 
                       // et complétez le code ci dessous en remplaçant les ???
-                      $authorId = $_GET['user_id'];
+
+                      $authorId = $_SESSION['connected_id'];
                       $postContent = $_POST['message'];
 
 
@@ -123,23 +126,22 @@ session_start();
                       if ( ! $ok)
                       {
                           echo "Impossible d'ajouter le message: " . $mysqli->error;
-                      } else
-                      {
-                          echo "Message posté en tant que :" . $listAuteurs[$authorId];
                       }
-
+                    }
                   ?>
-                  <form action="wall.php" method="post">
+                  <form action= "" method="post">
                       <input type='hidden' name='???' value='achanger'>
                       <dl>
-                          <dt><label for='auteur'>Auteur: <?php echo $userId?></label></dt>
 
                           <dt><label for='message'>Message</label></dt>
                           <dd><textarea name='message'></textarea></dd>
                       </dl>
-                      <input type='submit'>
+                      <input type='submit' value ='submit' name='submit'>
                   </form>
               </article>
+              <?php
+            }
+            ?>
                 <?php
                 /**
                  * Etape 3: récupérer tous les messages de l'utilisatrice
@@ -176,7 +178,7 @@ session_start();
 
                     <article>
                         <h3>
-                            <time datetime='2020-02-01 11:12:13' >31 février 2010 à 11h12</time>
+                            <time datetime='2020-02-01 11:12:13' ><?php echo $post['created']?></time>
                         </h3>
                         <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>">  <?php echo $post['author_name'] ?></a></address>
                         <div>
