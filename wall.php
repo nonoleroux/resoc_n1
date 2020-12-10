@@ -84,10 +84,11 @@ session_start();
 
 
 
-                          $jeVeuxFollow = isset($_POST['followButton']) ;
-                          print_r($jeVeuxFollow);
+                          // $jeVeuxFollow = isset($_POST['followButton']) ;
+                          // print_r($jeVeuxFollow);
 
-                           if ($jeVeuxFollow){
+                          // if ($jeVeuxFollow){
+                          if (isset($_POST['followButton'])){
                             $aQuiSuisJeAbonnee = "SELECT `following_user_id`"
                                               ."FROM `followers` "
                                               ."WHERE `followed_user_id`='" . intval($userId) . "'"
@@ -101,26 +102,33 @@ session_start();
                             {
                               print_r($abonnements['following_user_id']);
                     // }
-                            if ($abonnements['following_user_id']== $userId){
-                              echo "Vous êtes déjà abonnée à " . $user['alias'] . " !";
-                            }
-                            else {
+                            // if ($abonnements['following_user_id']== $userId){
+                            //   echo "Vous êtes déjà abonnée à " . $user['alias'] . " !";
+                            // }
+                            // else {
+                            $maSession = $_SESSION['connected_id'];
+                            $MonFuturPoto =$userId;
+                            $maSession = $mysqli->real_escape_string($maSession);
+                            $MonFuturPoto = $mysqli->real_escape_string($MonFuturPoto);
                               echo "Tu n'es pas encore abonne frero à " . $user['alias'] . " !";
-                              $nouvelAbo = "INSERT INTO `followers` "
-                                      . "(`id`, `followed_user_id`, `following_user_id`) "
-                                      . "VALUES (NULL, "
+                              $nouvelAbo = "INSERT INTO `followers`(`id`, `followed_user_id`, `following_user_id`) "
+                                      . "VALUEs (NULL, "
                                       . "" . $_SESSION['connected_id'] . ", "
-                                      . "'" . $userId . "', "
-                                      ;
+                                      . "'" . $userId . "'"
+                                      . ");";
+
                               $ok = $mysqli->query($nouvelAbo);
 
                               if ($ok) {
                                 echo "Vous êtes abonnée à " . $user['alias'] . " !";
                               }
+                              else {
+                                echo "somthing went wrong";
+                              }
                             }
                   }
                 }
-                } //fin du if je veux follow
+              //  } //fin du if je veux follow
                         ?>
                     </form>
                 </section>
