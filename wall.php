@@ -64,11 +64,35 @@ session_start();
                     <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias'] ?>
                         (n° <?php echo $_GET['user_id'] ?>)
                     </p>
+                    <?php if($userId!==$_SESSION['connected_id']){
+                    ?>
+                      <form action= "" method="post">
+                          <input type='button' name='followButton' value='Follow'>
+                          <?php
+                          $jeVeuxFollow = isset($_POST['followButton']);
+                          // if ($jeVeuxFollow){
+                            $aQuiSuisJeAbonnee = "SELECT `following_user_id`"
+                                              ."FROM `followers` "
+                                              ."WHERE `followed_user_id`='" . intval($userId) . "'"
+                                              ;
+
+
+
+
+                            $infoAbonnements = $mysqli->query($aQuiSuisJeAbonnee);
+                            $abonnements = $infoAbonnements->fetch_assoc();
+
+                    // }
+                    print_r($abonnements);
+                  }
+                        ?>
+                    </form>
                 </section>
             </aside>
             <main>
                 <?php if ($_SESSION['connected_id'] == $userId){ ?>
               <article>
+
                   <h2>Poster un message</h2>
                   <?php
                   /**
@@ -78,7 +102,6 @@ session_start();
                   /**
                    * Récupération des informations sur l'utilsateur connecté
                    */
-                  // $_GET['user_id']
                   $requeteAlias = "SELECT `alias` FROM `users` WHERE id=" . intval($userId);
                   $lesInformationsAlias = $mysqli->query($requeteAlias);
                   $alias = $lesInformationsAlias->fetch_assoc();
