@@ -1,0 +1,11 @@
+Etape : S’abonner sur le mur d'un utilisateur
+
+-Creation du bouton follow
+-Quand on clique  ca lance notre code
+- On réussi a récupérer la liste des personnes que l'utilisateur follow
+- Neanmoins, on est bloquée sur la partie comparaison de l'ID de l'utilisateur qu'on veut suivre et notre tableau de personne déjà followées Idée de créer une variable qui va contenir toutes les ID des personnes followees et l'utiliser pour comparer tout en même temps
+
+14.12.2020
+
+L'abonnement est fonctionnel. On commence à travailler sur le désabonnement avec un bouton qui varie entre follow/unfollow.
+Idée de simplifier le code avec une fonction qui renvoie vrai ou faux a la question 'est il déjà abonne ou pas’.}
