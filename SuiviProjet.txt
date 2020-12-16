@@ -9,3 +9,7 @@ Etape : S’abonner sur le mur d'un utilisateur
 
 L'abonnement est fonctionnel. On commence à travailler sur le désabonnement avec un bouton qui varie entre follow/unfollow.
 Idée de simplifier le code avec une fonction qui renvoie vrai ou faux a la question 'est il déjà abonne ou pas’.}
+
+
+16.12.2020
+Remonter le while tout en haut pour postlike sur chaque post et déduire la valeur du bouton.
