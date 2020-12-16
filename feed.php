@@ -109,9 +109,16 @@ session_start();
                     <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>">  <?php echo $post['author_name'] ?></a></address>
                     <div>
                         <p><?php echo $post['content'] ?></p>
+
                     </div>
                     <footer>
+
                         <small>♥<?php echo $post['like_number'] ?></small>
+                        <small><form  id ="btnLike" method="post">
+
+                            <input type='submit' name='followButton' value="Like ! ♥">
+
+                    </form></small>
                         <a href=""><?php echo $post['taglist'] ?></a>,
                         <!--<a href="">#piscitur</a>,-->
                     </footer>
