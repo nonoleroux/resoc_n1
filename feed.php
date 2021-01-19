@@ -4,7 +4,9 @@ if (!isset($_SESSION['connected_id'])){
     header('Location: login.php');
     exit();
 }
-include 'header.php' 
+include 'header.php';
+include 'buttonlikelogic.php';
+print_r($postlike_array);
 ?>
         <div id="wrapper">
             <?php
@@ -54,15 +56,16 @@ include 'header.php'
                         . "`posts`.`created`,"
                         . "`users`.`alias` as author_name,  "
                         . "`users`.`id` as user_id,  "
+                        . "`posts`.`id` as post_id,  "
                         . "count(`likes`.`id`) as like_number,  "
                         . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
                         . "FROM `followers` "
-                        . "JOIN `users` ON `users`.`id`=`followers`.`followed_user_id`"
+                        . "JOIN `users` ON `users`.`id`=`followers`.`following_user_id`"
                         . "JOIN `posts` ON `posts`.`user_id`=`users`.`id`"
                         . "LEFT JOIN `posts_tags` ON `posts`.`id` = `posts_tags`.`post_id`  "
                         . "LEFT JOIN `tags`       ON `posts_tags`.`tag_id`  = `tags`.`id` "
                         . "LEFT JOIN `likes`      ON `likes`.`post_id`  = `posts`.`id` "
-                        . "WHERE `followers`.`following_user_id`='" . intval($userId) . "' "
+                        . "WHERE `followers`.`followed_user_id`='" . intval($userId) . "' "
                         . "GROUP BY `posts`.`id`"
                         . "ORDER BY `posts`.`created` DESC  "
                 ;
@@ -78,6 +81,16 @@ include 'header.php'
                  */
                  while ($post = $lesInformations->fetch_assoc())
                  {
+                    if ($postlike_array[$post['post_id']]==1){
+
+                        $btnLike = "Unlike";
+
+
+
+                        } else {
+                        $btnLike = "Like ! ♥";
+
+                        }
                 ?>
                 <article>
                     <h3>
@@ -91,11 +104,12 @@ include 'header.php'
                     <footer>
 
                         <small>♥<?php echo $post['like_number'] ?></small>
-                        <small><form  id ="btnLike" method="post">
-
-                            <input type='submit' name='followButton' value="Like ! ♥">
-
-                    </form></small>
+                        <small>
+                                <form method="post">
+                                    <input type='submit' name='likeButton' value="<?php echo $btnLike ?>">
+                                    <input type="hidden" name="postId" value="<?php echo $post['post_id'] ?>">
+                                </form>
+                        </small>
                         <a href=""><?php echo $post['taglist'] ?></a>,
                         <!--<a href="">#piscitur</a>,-->
                     </footer>

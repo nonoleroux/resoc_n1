@@ -26,4 +26,3 @@
               </ul>
             </nav>
         </header>
-<?php print_r($_SESSION) ?>

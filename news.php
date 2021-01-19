@@ -12,8 +12,6 @@ if ($mysqli->connect_errno) {
     echo ("<p>Indice: Vérifiez les parametres de <code>new mysqli(...</code></p>");
     exit();
 }
-$likearray = array();
-$postidarray = array();
 
 $laQuestionEnSql = "SELECT `posts`.`content`,"
 . "`posts`.`created`,"
@@ -39,7 +37,8 @@ if (!$lesInformations) {
     exit();
 }
 
-
+$likearray = array();
+$postidarray = array();
 
     if (isset($_POST['likeButton'])) {
 
@@ -103,7 +102,6 @@ if (!$lesInformations) {
 
     }
     $postlike_array = array_combine($postidarray, $likearray);
-    print_r ($postlike_array);
     include 'header.php';
 
     ?>

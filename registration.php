@@ -4,7 +4,7 @@
 
             <aside>
                 <h2>Présentation</h2>
-                <p>Bienvenu sur notre réseau social.</p>
+                <p>Bienvenue sur notre réseau social.</p>
             </aside>
             <main>
                 <article>
@@ -53,7 +53,7 @@
                         } else
                         {
                             echo "Votre inscription est un succès : " . $new_alias;
-                            echo " <a href='login.php'>Connectez-vous.</a>";
+                            echo "</br><a href='login.php'><button class='btn login'>Connectez-vous</button></a>";
                         }
                     }
                     ?>
