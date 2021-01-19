@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['connected_id'])){
     header('Location: login.php');
@@ -6,7 +6,7 @@ if (!isset($_SESSION['connected_id'])){
 }
 include 'header.php';
 include 'buttonlikelogic.php';
-print_r($postlike_array);
+
 ?>
         <div id="wrapper">
             <?php

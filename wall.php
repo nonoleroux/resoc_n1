@@ -5,7 +5,8 @@ if (!isset($_SESSION['connected_id'])){
     exit();
 }
 ?>
-<?php include 'header.php' ?>
+<?php include 'header.php';
+include 'buttonlikelogic.php';?>
 <?php
 
 
@@ -161,6 +162,7 @@ if (isset($_POST['followButton'])){
     . "`posts`.`created`,"
     . "`users`.`alias` as author_name,  "
     . "`users`.`id` as user_id,  "
+    . "`posts`.`id` as post_id,  "
     . "count(`likes`.`id`) as like_number,  "
     . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
     . "FROM `posts`"
@@ -180,6 +182,16 @@ if (isset($_POST['followButton'])){
 
     while ($post = $lesInformations->fetch_assoc())
     {
+      if ($postlike_array[$post['post_id']]==1){
+
+        $btnLike = "Unlike";
+
+
+
+        } else {
+        $btnLike = "Like ! ♥";
+
+        }
 
         ?>
 
@@ -193,7 +205,13 @@ if (isset($_POST['followButton'])){
             </div>
             <footer>
                 <small>♥ <?php echo $post['like_number'] ?></small>
-                <a href=""><?php echo $post['taglist'] ?></a>,
+                <small>
+                        <form method="post">
+                            <input type='submit' name='likeButton' value="<?php echo $btnLike ?>">
+                            <input type="hidden" name="postId" value="<?php echo $post['post_id'] ?>">
+                        </form>
+                </small>
+                <a href=""><?php echo $post['taglist'] ?></a>
 
             </footer>
         </article>
