@@ -14,9 +14,7 @@ if ($mysqli->connect_errno) {
 }
 $likearray = array();
 $postidarray = array();
-// Etape 2: Poser une question à la base de donnée et récupérer ses informations
-// cette requete vous est donnée, elle est complexe mais correcte,
-// si vous ne la comprenez pas c'est normal, passez, on y reviendra
+
 $laQuestionEnSql = "SELECT `posts`.`content`,"
 . "`posts`.`created`,"
 . "`users`.`alias` as author_name,  "
@@ -41,53 +39,16 @@ if (!$lesInformations) {
     exit();
 }
 
-// while ($post2 = $lesInformations2->fetch_assoc()) {
-//     $alreadyLiked2 = "SELECT *
-//     FROM `likes`
-//     WHERE `user_id` ='" . $userLiker . "'"
-//     . "AND `post_id`='" . $post2['post_id'] . "'";
-//
-//
-//     $resultLike2 = $mysqli->query($alreadyLiked2);
-//
-//     if ($resultLike2->num_rows !== 0){
-//         $isLiked2=1;
-//     }
-//     else {
-//         $isLiked2=0;
-//     }
-//
-//     array_push($likearray, $isLiked2);
-//     array_push($postidarray,$post2['post_id']);
-//
-// }
-// $postlike_array = array_combine($postidarray, $likearray);
-
-// foreach ($postlike_array as $value) {
-//
-//     if ($postlike_array[$post2['post_id']]==1){
-//
-//         $btnLike = "Unlike";
-//
-//         } else {
-//         $btnLike = "Like ! ♥";
-//         }
-// }
-
-
-//print_r ($likearray);
-//print_r ($postidarray);
 
 
     if (isset($_POST['likeButton'])) {
+
         $postLiked = $_POST['postId'];
 
-        // 1. connexion BDD
         $alreadyLiked="SELECT *
         FROM `likes`
         WHERE `user_id` ='".$userLiker ."'"
         ."AND `post_id`='".$postLiked."'";
-
 
         $resultLike = $mysqli->query($alreadyLiked);
         $isLiked=($resultLike->num_rows!=0);
@@ -117,7 +78,9 @@ if (!$lesInformations) {
 
             $resultUnlike = $mysqli->query($unlikeRequest);
             $btnLike = "Like ! ♥";
+
         }
+        header("Refresh:0");
     }
     while ($post2 = $lesInformations2->fetch_assoc()) {
         $alreadyLiked2 = "SELECT *
@@ -141,7 +104,8 @@ if (!$lesInformations) {
     }
     $postlike_array = array_combine($postidarray, $likearray);
     print_r ($postlike_array);
-    include 'header.php' 
+    include 'header.php';
+
     ?>
         <div id="wrapper">
             <aside>
@@ -157,61 +121,19 @@ if (!$lesInformations) {
                     @todo: doit etre retiré -->
 
                     <?php
-                    /*
-                    // C'est ici que le travail PHP commence
-                    // Votre mission si vous l'acceptez est de chercher dans la base
-                    // de données la liste des 5 derniers messsages (posts) et
-                    // de l'afficher
-                    // Documentation : les exemples https://www.php.net/manual/fr/mysqli.query.php
-                    // plus généralement : https://www.php.net/manual/fr/mysqli.query.php
-                    */
 
-
-                    //verification
-                    // if ($mysqli->connect_errno)
-                    // {
-                    //     echo("Échec de la connexion : " . $mysqli->connect_error);
-                    //     echo("<p>Indice: Vérifiez les parametres de <code>new mysqli(...</code></p>");
-                    //     exit();
-                    // }
-
-                    // // Etape 2: Poser une question à la base de donnée et récupérer ses informations
-                    // // cette requete vous est donnée, elle est complexe mais correcte,
-                    // // si vous ne la comprenez pas c'est normal, passez, on y reviendra
-                    // $laQuestionEnSql = "SELECT `posts`.`content`,"
-                    //         . "`posts`.`created`,"
-                    //         . "`users`.`alias` as author_name,  "
-                    //         . "`users`.`id` as user_id,  "
-                    //         . "`posts`.`id` as post_id,  "
-                    //         . "count(`likes`.`id`) as like_number,  "
-                    //         . "GROUP_CONCAT(distinct`tags`.`label`) AS taglist "
-                    //         . "FROM `posts`"
-                    //         . "JOIN `users` ON  `users`.`id`=`posts`.`user_id`"
-                    //         . "LEFT JOIN `posts_tags` ON `posts`.`id` = `posts_tags`.`post_id`  "
-                    //         . "LEFT JOIN `tags`       ON `posts_tags`.`tag_id`  = `tags`.`id` "
-                    //         . "LEFT JOIN `likes`      ON `likes`.`post_id`  = `posts`.`id` "
-                    //         . "GROUP BY `posts`.`id`"
-                    //         . "ORDER BY `posts`.`created` DESC  "
-                    //         . "LIMIT 10";
-                    // $lesInformations = $mysqli->query($laQuestionEnSql);
-                    // // Vérification
-                    // if ( ! $lesInformations)
-                    // {
-                    //     echo("Échec de la requete : " . $mysqli->error);
-                    //     echo("<p>Indice: Vérifiez les la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                    //     exit();
-                    // }
-
-                    // // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html
-                    // // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
                     while ($post = $lesInformations->fetch_assoc()) {
                         if ($postlike_array[$post['post_id']]==1){
 
                                 $btnLike = "Unlike";
 
+
+
                                 } else {
                                 $btnLike = "Like ! ♥";
+
                                 }
+
                         ?>
                         <article>
                             <h3>
