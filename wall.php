@@ -4,6 +4,10 @@ if (!isset($_SESSION['connected_id'])){
     header('Location: login.php');
     exit();
 }
+?>
+<?php include 'header.php' ?>
+<?php
+
 
 $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
 
@@ -65,8 +69,7 @@ if (isset($_POST['followButton'])){
 }
 
 ?>
-<?php include 'header.php' 
-?>
+
     <div id="wrapper">
         <?php
 

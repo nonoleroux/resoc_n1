@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-include 'header.php' 
+include 'header.php'
 ?>
 
         <div id="wrapper" >
@@ -60,8 +60,15 @@ include 'header.php'
                             $_SESSION['connected_id']=$user['id'];
 
                             $_SESSION['connected_alias']=$user['alias'];
+
+                            header('Location: news.php');
+
+
+
+
                         }
                     }
+
                     ?>
                     <form action="login.php" method="post">
                         <input type='hidden'name='???' value='achanger'>
